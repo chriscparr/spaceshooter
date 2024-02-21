@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8981449916257409563}
   - component: {fileID: 8826128719426762423}
   - component: {fileID: 8041961258211392013}
+  - component: {fileID: 6712008773034042886}
   m_Layer: 0
   m_Name: HardEnemy
   m_TagString: Untagged
@@ -105,3 +106,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6712008773034042886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367108620686749269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42755394d940bba44a355fcce4561729, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 287545387746567224, guid: 5af8fb4428d0cbc40ba83d906f1034fd, type: 3}
