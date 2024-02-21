@@ -18,4 +18,11 @@ public class Bullet : MonoBehaviour
         _direction = direction;
         _speed = speed;
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("hit " + collision.gameObject.name);
+        Destroy(collision.gameObject);
+        Destroy(gameObject);
+    }
 }
