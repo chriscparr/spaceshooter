@@ -1,22 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour, IGameEntity
 {
-    private Vector3 _direction;
-    private float _speed = 0f;
-
-    // Update is called once per frame
-    void Update()
-    {
-        transform.Translate(_direction * _speed * Time.deltaTime);
-    }
+    [SerializeField] protected Rigidbody _rigidbody;
 
     public void FireBullet(Vector3 direction, float speed)
     {
-        _direction = direction;
-        _speed = speed;
+        _rigidbody.AddForce(direction * speed, ForceMode.VelocityChange);
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : AbstractGameEntity
 { 
     [SerializeField] protected Bullet bulletPrefab;
+    [SerializeField] protected Rigidbody _rigidbody;
     public override Bullet BulletPrefab { get { return bulletPrefab; } }
 
     protected override int Health { get => _health; set => _health = value; }
@@ -12,7 +13,7 @@ public class Player : AbstractGameEntity
     protected override int TotalHealth => 100;
     protected override int bulletInterval => 100;
     protected int _health;
-    protected float _moveSpeed = 10;
+    protected float _moveSpeed = 1;
 
     // Update is called once per frame
     protected override void Update()
@@ -25,7 +26,7 @@ public class Player : AbstractGameEntity
         float verticalInput = Input.GetAxis("Vertical");
         //Get the value of the Vertical input axis.
 
-        transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed * Time.deltaTime);
+        _rigidbody.AddForce(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed, ForceMode.Force);
     }
 
     protected override void Shoot()
