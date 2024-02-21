@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] protected Bullet bulletPrefab;
     protected float _moveSpeed = 10;
 
     // Start is called before the first frame update
@@ -22,6 +23,13 @@ public class Player : MonoBehaviour
         //Get the value of the Vertical input axis.
 
         transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed * Time.deltaTime);
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Bullet bull = Instantiate<Bullet>(bulletPrefab);
+            bull.transform.position = transform.position + Vector3.right;
+            bull.Shoot(Vector3.right, 20f);
+        }
 
     }
 }
