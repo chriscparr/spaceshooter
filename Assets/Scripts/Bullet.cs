@@ -25,4 +25,13 @@ public class Bullet : MonoBehaviour
         Destroy(collision.gameObject);
         Destroy(gameObject);
     }
+
+    //Trigger box attached to the camera will move with the player + dispose of stray bullets
+    protected void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.name == "Main Camera")
+        {
+            Destroy(gameObject);
+        }
+    }
 }
