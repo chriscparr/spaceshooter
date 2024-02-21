@@ -9,6 +9,8 @@ public class GameController : MonoBehaviour
 
     [SerializeField] private GameObject[] _bgTiles;
     [SerializeField] private Player _player;
+    [SerializeField] private GameObject _camera;
+    [SerializeField] private UICanvas _uiCanvas;
 
     private List<GameObject> _bgTileList;
 
@@ -26,6 +28,13 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if (_player.transform.position.x > _camera.transform.position.x)
+        {
+            _camera.transform.position = new Vector3(_player.transform.position.x, 0, -20);
+        }
+        int playerScore = Mathf.FloorToInt(_player.transform.position.x);
+        _uiCanvas.SetScore(playerScore);
+
         CheckBGTiles();
     }
 
