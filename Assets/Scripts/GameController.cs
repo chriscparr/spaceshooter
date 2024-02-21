@@ -7,6 +7,8 @@ public class GameController : MonoBehaviour
     public static GameController Instance { get { return _instance; } }
     private static GameController _instance;
 
+    public Vector3 PlayerPosition { get { return _player.transform.position; } }
+
     [SerializeField] private GameObject[] _bgTiles;
     [SerializeField] private Player _player;
     [SerializeField] private GameObject _camera;
