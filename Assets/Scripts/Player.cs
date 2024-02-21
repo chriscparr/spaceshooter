@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
-{
+public class Player : MonoBehaviour, IGameEntity
+{ 
     [SerializeField] protected Bullet bulletPrefab;
     protected float _moveSpeed = 10;
 
@@ -44,5 +44,10 @@ public class Player : MonoBehaviour
         {
             bulletCountdown--;
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        //take some damage
     }
 }

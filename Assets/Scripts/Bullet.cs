@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IGameEntity
 {
     private Vector3 _direction;
     private float _speed = 0f;
@@ -21,11 +21,8 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.name.StartsWith("Enemy"))
-        {
-            collision.gameObject.GetComponent<Enemy>().TakeDamage(1);
-        }
-        Destroy(gameObject);
+        collision.gameObject.GetComponent<IGameEntity>().TakeDamage(1);
+        TakeDamage(1);
     }
 
     //Trigger box attached to the camera will move with the player + dispose of stray bullets
@@ -35,5 +32,10 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Destroy(gameObject);
     }
 }
