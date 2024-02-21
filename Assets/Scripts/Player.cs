@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Shoot();
+
         float horizontalInput = Input.GetAxis("Horizontal");
         //Get the value of the Horizontal input axis.
 
@@ -26,7 +28,10 @@ public class Player : MonoBehaviour
         //Get the value of the Vertical input axis.
 
         transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed * Time.deltaTime);
+    }
 
+    protected void Shoot()
+    {
         if (bulletCountdown == 0)
         {
             bulletCountdown = bulletInterval;
@@ -39,6 +44,5 @@ public class Player : MonoBehaviour
         {
             bulletCountdown--;
         }
-
     }
 }

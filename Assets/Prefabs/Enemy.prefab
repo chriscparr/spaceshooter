@@ -118,3 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb36d69030d5f846ae853ab7b21816d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 287545387746567224, guid: 5af8fb4428d0cbc40ba83d906f1034fd, type: 3}
