@@ -6,9 +6,14 @@ public class UICanvas : MonoBehaviour
     private int _currentScore = 0;
     private int _bestScore = 0;
 
-    public void SetScore(int score)
+    protected void Start()
     {
-        _currentScore = score;
+        GameController.Instance.PlayerPositionChanged += OnPlayerPositionChanged;
+    }
+
+    protected void OnPlayerPositionChanged(Vector3 playerPosition)
+    {
+        _currentScore = Mathf.FloorToInt(playerPosition.x);
         if (_currentScore > _bestScore)
         {
             _bestScore = _currentScore;

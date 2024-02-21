@@ -8,16 +8,29 @@ public class EasyEnemy : AbstractEnemy
 
     protected override int Health { get => health; set => health = value; }
     protected override int TotalHealth => 1;
-    protected int health;    
+    protected int health;
+
+    protected Vector3 playerDirection;
+
+    protected override void Start()
+    {
+        base.Start();
+        GameController.Instance.PlayerPositionChanged += OnPlayerPositionChanged;
+    }
+
+    protected void OnPlayerPositionChanged(Vector3 playerPosition)
+    {
+        playerDirection = (playerPosition - transform.position).normalized;
+    }
+
 
     protected override void Shoot()
     {
         if (bulletCountdown == 0)
         {
             bulletCountdown = bulletInterval;
-            Vector3 direction = (GameController.Instance.PlayerPosition - transform.position).normalized;
-            IBullet bull = _bulletFactory.GetBullet(transform.position + direction * 2f);
-            bull.FireBullet(direction, 20f);
+            IBullet bull = _bulletFactory.GetBullet(transform.position + playerDirection * 2f);
+            bull.FireBullet(playerDirection, 20f);
         }
         if (bulletCountdown > 0)
         {
