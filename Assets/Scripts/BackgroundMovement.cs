@@ -11,7 +11,7 @@ public class BackgroundMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameController.Instance.PlayerPositionChanged += OnPlayerPositionChanged;
+        Player.PlayerPositionChanged += OnPlayerPositionChanged;
         _bgTileList = new List<GameObject>(_bgTiles);
         _bgTileList = _bgTileList.OrderBy(o => o.transform.position.x).ToList();
     }

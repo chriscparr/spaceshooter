@@ -8,7 +8,7 @@ public class UICanvas : MonoBehaviour
 
     protected void Start()
     {
-        GameController.Instance.PlayerPositionChanged += OnPlayerPositionChanged;
+        Player.PlayerPositionChanged += OnPlayerPositionChanged;
     }
 
     protected void OnPlayerPositionChanged(Vector3 playerPosition)

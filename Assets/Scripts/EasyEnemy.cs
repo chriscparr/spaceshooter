@@ -15,7 +15,7 @@ public class EasyEnemy : AbstractEnemy
     protected override void Start()
     {
         base.Start();
-        GameController.Instance.PlayerPositionChanged += OnPlayerPositionChanged;
+        Player.PlayerPositionChanged += OnPlayerPositionChanged;
     }
 
     protected void OnPlayerPositionChanged(Vector3 playerPosition)

@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : AbstractGameEntity
-{ 
+{
+    public delegate void PlayerPositionStatus(Vector3 position);
+    public static event PlayerPositionStatus PlayerPositionChanged;
+
     [SerializeField] protected Rigidbody _rigidbody;
     protected override int Health { get => _health; set => _health = value; }
     protected override int TotalHealth => 100;
@@ -14,11 +17,11 @@ public class Player : AbstractGameEntity
     // Update is called once per frame
     protected override void Update()
     {
-        Shoot();
-
+        base.Update();
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         _rigidbody.AddForce(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed, ForceMode.Force);
+        PlayerPositionChanged?.Invoke(transform.position);
     }
 
     protected override void Shoot()
