@@ -8,6 +8,9 @@ public class EasyEnemy : AbstractEnemy
 
     protected override int Health { get => health; set => health = value; }
     protected override int TotalHealth => 1;
+
+    public override Constants.EnemyType Type => Constants.EnemyType.EASY;
+
     protected int health;
 
     protected Vector3 playerDirection;

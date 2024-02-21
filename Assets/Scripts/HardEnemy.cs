@@ -7,6 +7,8 @@ public class HardEnemy : AbstractEnemy
     protected override int bulletInterval => 700;
     protected int _health;
 
+    public override Constants.EnemyType Type => Constants.EnemyType.HARD;
+
     private Vector3 _bulletYOffset = new Vector3(0f, 0.1f, 0f);
     private Vector3 bulletSpawnPoint => transform.position + new Vector3(-1.5f, 0f, 0f);
 

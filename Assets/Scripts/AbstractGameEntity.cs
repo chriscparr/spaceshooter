@@ -9,14 +9,7 @@ public abstract class AbstractGameEntity : MonoBehaviour, IGameEntity
 
     protected BulletFactory _bulletFactory;
 
-    public virtual void TakeDamage(int damage)
-    {
-        Health -= damage;
-        if (Health <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
+    public abstract void TakeDamage(int damage);
 
     protected virtual void Start()
     {

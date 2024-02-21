@@ -12,7 +12,24 @@ public class Player : AbstractGameEntity
     protected override int TotalHealth => 100;
     protected override int bulletInterval => 100;
     protected int _health;
-    protected float _moveSpeed = 1;    
+    protected float _moveSpeed = 1;
+
+    protected Vector3 shootDirection;
+
+    protected override void Start()
+    {
+        base.Start();
+        EnemySpawner.SpawnPositionsChanged += OnSpawnPositionsChanged;
+    }
+
+    private void OnSpawnPositionsChanged(List<Vector3> spawnPositions)
+    {
+        spawnPositions.Sort(delegate (Vector3 a, Vector3 b)
+        {
+            return Vector3.Distance(transform.position, a).CompareTo(Vector3.Distance(transform.position, b));
+        });
+        shootDirection = (spawnPositions[0] - transform.position).normalized;
+    }
 
     // Update is called once per frame
     protected override void Update()
@@ -30,7 +47,7 @@ public class Player : AbstractGameEntity
         {
             bulletCountdown = bulletInterval;
             IBullet bull = _bulletFactory.GetBullet(transform.position + Vector3.right);
-            bull.FireBullet(Vector3.right, 20f);
+            bull.FireBullet(shootDirection, 20f);
         }
         if (bulletCountdown > 0)
         {

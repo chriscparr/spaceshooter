@@ -7,7 +7,7 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameController.Instance.PlayerPositionChanged += OnPlayerPositionChanged;
+        Player.PlayerPositionChanged += OnPlayerPositionChanged;
     }
 
     protected void OnPlayerPositionChanged(Vector3 playerPosition)
