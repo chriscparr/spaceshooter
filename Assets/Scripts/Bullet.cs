@@ -13,7 +13,7 @@ public class Bullet : MonoBehaviour, IGameEntity
         transform.Translate(_direction * _speed * Time.deltaTime);
     }
 
-    public void Shoot(Vector3 direction, float speed)
+    public void FireBullet(Vector3 direction, float speed)
     {
         _direction = direction;
         _speed = speed;

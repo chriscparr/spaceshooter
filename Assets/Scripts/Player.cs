@@ -2,22 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IGameEntity
+public class Player : AbstractGameEntity
 { 
     [SerializeField] protected Bullet bulletPrefab;
+    public override Bullet BulletPrefab { get { return bulletPrefab; } }
+
+    protected override int Health { get => _health; set => _health = value; }
+
+    protected override int TotalHealth => 100;
+    protected override int bulletInterval => 100;
+    protected int _health;
     protected float _moveSpeed = 10;
 
-    protected int bulletInterval => 100;
-    protected int bulletCountdown = 0;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
         Shoot();
 
@@ -30,7 +28,7 @@ public class Player : MonoBehaviour, IGameEntity
         transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed * Time.deltaTime);
     }
 
-    protected void Shoot()
+    protected override void Shoot()
     {
         if (bulletCountdown == 0)
         {
@@ -38,7 +36,7 @@ public class Player : MonoBehaviour, IGameEntity
 
             Bullet bull = Instantiate<Bullet>(bulletPrefab);
             bull.transform.position = transform.position + Vector3.right;
-            bull.Shoot(Vector3.right, 20f);
+            bull.FireBullet(Vector3.right, 20f);
         }
         if (bulletCountdown > 0)
         {
@@ -46,7 +44,7 @@ public class Player : MonoBehaviour, IGameEntity
         }
     }
 
-    public void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
         //take some damage
     }
