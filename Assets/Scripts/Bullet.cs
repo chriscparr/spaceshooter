@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Bullet : MonoBehaviour, IGameEntity
+public class Bullet : MonoBehaviour, IGameEntity, IBullet
 {
     [SerializeField] protected Rigidbody _rigidbody;
 

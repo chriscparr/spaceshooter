@@ -2,12 +2,12 @@ using UnityEngine;
 
 public abstract class AbstractGameEntity : MonoBehaviour, IGameEntity
 {
-    public abstract Bullet BulletPrefab { get; }
-
     protected abstract int Health { get; set; }
     protected abstract int TotalHealth { get; }
     protected abstract int bulletInterval { get; }
     protected int bulletCountdown = 0;
+
+    protected BulletFactory _bulletFactory;
 
     public virtual void TakeDamage(int damage)
     {
@@ -21,6 +21,7 @@ public abstract class AbstractGameEntity : MonoBehaviour, IGameEntity
     protected virtual void Start()
     {
         Health = TotalHealth;
+        _bulletFactory = gameObject.AddComponent<BulletFactory>();
     }
 
     // Update is called once per frame

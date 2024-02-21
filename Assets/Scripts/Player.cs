@@ -4,16 +4,12 @@ using UnityEngine;
 
 public class Player : AbstractGameEntity
 { 
-    [SerializeField] protected Bullet bulletPrefab;
     [SerializeField] protected Rigidbody _rigidbody;
-    public override Bullet BulletPrefab { get { return bulletPrefab; } }
-
     protected override int Health { get => _health; set => _health = value; }
-
     protected override int TotalHealth => 100;
     protected override int bulletInterval => 100;
     protected int _health;
-    protected float _moveSpeed = 1;
+    protected float _moveSpeed = 1;    
 
     // Update is called once per frame
     protected override void Update()
@@ -21,11 +17,7 @@ public class Player : AbstractGameEntity
         Shoot();
 
         float horizontalInput = Input.GetAxis("Horizontal");
-        //Get the value of the Horizontal input axis.
-
         float verticalInput = Input.GetAxis("Vertical");
-        //Get the value of the Vertical input axis.
-
         _rigidbody.AddForce(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed, ForceMode.Force);
     }
 
@@ -34,9 +26,7 @@ public class Player : AbstractGameEntity
         if (bulletCountdown == 0)
         {
             bulletCountdown = bulletInterval;
-
-            Bullet bull = Instantiate<Bullet>(bulletPrefab);
-            bull.transform.position = transform.position + Vector3.right;
+            IBullet bull = _bulletFactory.GetBullet(transform.position + Vector3.right);
             bull.FireBullet(Vector3.right, 20f);
         }
         if (bulletCountdown > 0)
