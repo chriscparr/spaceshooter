@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
     [SerializeField] protected Bullet bulletPrefab;
     protected float _moveSpeed = 10;
 
+    protected int bulletInterval => 100;
+    protected int bulletCountdown = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +27,17 @@ public class Player : MonoBehaviour
 
         transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed * Time.deltaTime);
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (bulletCountdown == 0)
         {
+            bulletCountdown = bulletInterval;
+
             Bullet bull = Instantiate<Bullet>(bulletPrefab);
             bull.transform.position = transform.position + Vector3.right;
             bull.Shoot(Vector3.right, 20f);
+        }
+        if (bulletCountdown > 0)
+        {
+            bulletCountdown--;
         }
 
     }
