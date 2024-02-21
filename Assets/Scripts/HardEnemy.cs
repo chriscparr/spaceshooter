@@ -6,7 +6,7 @@ public class HardEnemy : AbstractEnemy
 
     protected override int Health { get => _health; set => _health = value; }
 
-    protected override int TotalHealth => 3;
+    protected override int TotalHealth => 2;
     protected override int bulletInterval => 700;
     protected int _health;
 
