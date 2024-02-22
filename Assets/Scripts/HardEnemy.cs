@@ -17,9 +17,14 @@ public class HardEnemy : AbstractEnemy
         if (bulletCountdown == 0)
         {
             bulletCountdown = bulletInterval;
-            IBullet bull1 = _bulletFactory.GetBullet(bulletSpawnPoint + Vector3.up);
-            IBullet bull2 = _bulletFactory.GetBullet(bulletSpawnPoint);
-            IBullet bull3 = _bulletFactory.GetBullet(bulletSpawnPoint + Vector3.down);
+
+            Bullet bull1 = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+            bull1.transform.position = bulletSpawnPoint + Vector3.up;
+            Bullet bull2 = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+            bull2.transform.position = bulletSpawnPoint;
+            Bullet bull3 = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+            bull3.transform.position = bulletSpawnPoint + Vector3.down;
+
             bull1.FireBullet(Vector3.left + _bulletYOffset, 20f);
             bull2.FireBullet(Vector3.left, 20f);
             bull3.FireBullet(Vector3.left - _bulletYOffset, 20f);

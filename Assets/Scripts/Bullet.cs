@@ -6,12 +6,14 @@ public class Bullet : MonoBehaviour, IGameEntity, IBullet
 
     public void FireBullet(Vector3 direction, float speed)
     {
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
         _rigidbody.AddForce(direction * speed, ForceMode.VelocityChange);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.GetComponent<IGameEntity>().TakeDamage(1);
+        collision.gameObject.GetComponent<IGameEntity>()?.TakeDamage(1);
         TakeDamage(1);
     }
 
@@ -20,12 +22,12 @@ public class Bullet : MonoBehaviour, IGameEntity, IBullet
     {
         if (other.gameObject.name == "Main Camera")
         {
-            Destroy(gameObject);
+            TakeDamage(1);
         }
     }
 
     public void TakeDamage(int damage)
     {
-        Destroy(gameObject);
+        PoolingManager.Instance.ReturnObjectToPool(gameObject);
     }
 }

@@ -32,8 +32,10 @@ public class EasyEnemy : AbstractEnemy
         if (bulletCountdown == 0)
         {
             bulletCountdown = bulletInterval;
-            IBullet bull = _bulletFactory.GetBullet(transform.position + playerDirection * 2f);
-            bull.FireBullet(playerDirection, 20f);
+
+            Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+            bullet.transform.position = transform.position + Vector3.left;
+            bullet.FireBullet(playerDirection, 20f);
         }
         if (bulletCountdown > 0)
         {

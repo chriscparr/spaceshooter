@@ -16,10 +16,14 @@ public class Player : AbstractGameEntity
 
     protected Vector3 shootDirection;
 
+    protected void Awake()
+    {
+        EnemySpawner.SpawnPositionsChanged += OnSpawnPositionsChanged;
+    }
+
     protected override void Start()
     {
         base.Start();
-        EnemySpawner.SpawnPositionsChanged += OnSpawnPositionsChanged;
     }
 
     private void OnSpawnPositionsChanged(List<Vector3> spawnPositions)
@@ -46,8 +50,9 @@ public class Player : AbstractGameEntity
         if (bulletCountdown == 0)
         {
             bulletCountdown = bulletInterval;
-            IBullet bull = _bulletFactory.GetBullet(transform.position + Vector3.right);
-            bull.FireBullet(shootDirection, 20f);
+            Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+            bullet.transform.position = transform.position + Vector3.right;
+            bullet.FireBullet(shootDirection, 20f);
         }
         if (bulletCountdown > 0)
         {

@@ -708,6 +708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HardEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 8367108620686749269, guid: 163e7f18b00e0ec43bb2907e50121ff7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -795,17 +799,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: EasyEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 167291360987688531, guid: bf0874cf149f0da489a38fffb03287ae, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3805312159655759345, guid: bf0874cf149f0da489a38fffb03287ae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 75.09435
       objectReference: {fileID: 0}
     - target: {fileID: 3805312159655759345, guid: bf0874cf149f0da489a38fffb03287ae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.173793
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 3805312159655759345, guid: bf0874cf149f0da489a38fffb03287ae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 50.000015
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3805312159655759345, guid: bf0874cf149f0da489a38fffb03287ae, type: 3}
       propertyPath: m_LocalRotation.w
