@@ -21,6 +21,10 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnemyKilled(IEnemy enemy)
     {
+        Explosion explosion = PoolingManager.Instance.GetObjectFromPool("Explosion", true, 0).GetComponent<Explosion>();
+        explosion.transform.position = enemy.Position;
+        explosion.Explode();
+
         enemy.Spawn(new Vector3(enemy.Position.x + Random.Range(10f, 20f), Random.Range(Constants.MinY, Constants.MaxY), 0f));
         DispatchSpawnPositions();
     }

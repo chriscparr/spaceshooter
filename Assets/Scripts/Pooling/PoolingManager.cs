@@ -33,6 +33,7 @@ public class PoolingManager : MonoBehaviour
     private void Awake()
     {
         InitPool("Bullet", 100, PoolInflationType.INCREMENT);
+        InitPool("Explosion", 10, PoolInflationType.INCREMENT);
     }
 
     //We can use this to load prefabs in advance, avoiding calling resources.load
