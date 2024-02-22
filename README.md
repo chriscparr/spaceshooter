@@ -1,29 +1,18 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
+### What is this? ###
 
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* A side scrolling space shooter game - your mission is to progress as far right into enemy territory as possible, eliminating as many of their small and large space ships with your autocannon. 
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Clone this repository
+* Open in unity editor >= 2022.3.20f1
 
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* This repository is private, no contribution expected
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Email me at ccparr13@gmail.com
