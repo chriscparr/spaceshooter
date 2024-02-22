@@ -4,7 +4,7 @@ public class HardEnemy : AbstractEnemy
     protected override int Health { get => _health; set => _health = value; }
 
     protected override int TotalHealth => 2;
-    protected override int bulletInterval => 700;
+    protected override int bulletInterval => 1000;
     protected int _health;
 
     public override Constants.EnemyType Type => Constants.EnemyType.HARD;

@@ -10,11 +10,11 @@ public class Player : AbstractGameEntity
     [SerializeField] protected Rigidbody _rigidbody;
     protected override int Health { get => _health; set => _health = value; }
     protected override int TotalHealth => 100;
-    protected override int bulletInterval => 100;
+    protected override int bulletInterval => 250;
     protected int _health;
     protected float _moveSpeed = 1;
 
-    protected Vector3 shootDirection;
+    protected Vector3 shootTarget;
 
     protected void Awake()
     {
@@ -32,7 +32,7 @@ public class Player : AbstractGameEntity
         {
             return Vector3.Distance(transform.position, a).CompareTo(Vector3.Distance(transform.position, b));
         });
-        shootDirection = (spawnPositions[0] - transform.position).normalized;
+        shootTarget = spawnPositions[0];
     }
 
     // Update is called once per frame
@@ -52,6 +52,7 @@ public class Player : AbstractGameEntity
             bulletCountdown = bulletInterval;
             Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
             bullet.transform.position = transform.position + Vector3.right;
+            Vector3 shootDirection = (shootTarget - transform.position).normalized;
             bullet.FireBullet(shootDirection, 20f);
         }
         if (bulletCountdown > 0)

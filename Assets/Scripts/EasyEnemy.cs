@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EasyEnemy : AbstractEnemy
 {
-    protected override int bulletInterval => 500;
+    protected override int bulletInterval => 750;
 
     protected override int Health { get => health; set => health = value; }
     protected override int TotalHealth => 1;
