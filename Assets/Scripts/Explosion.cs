@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour
 {
-    [SerializeField] protected ParticleSystem particleSystem;
+    [SerializeField] protected ParticleSystem _particleSystem;
 
     public void Explode()
     {
-        particleSystem.Play();
+        _particleSystem.Play();
     }
 
     void OnParticleSystemStopped()

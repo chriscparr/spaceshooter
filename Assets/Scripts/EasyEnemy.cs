@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EasyEnemy : AbstractEnemy
 {
-    protected override int bulletInterval => 750;
+    protected override float bulletInterval => 2f;
 
     protected override int Health { get => health; set => health = value; }
     protected override int TotalHealth => 1;
@@ -26,20 +26,10 @@ public class EasyEnemy : AbstractEnemy
         playerDirection = (playerPosition - transform.position).normalized;
     }
 
-
     protected override void Shoot()
     {
-        if (bulletCountdown == 0)
-        {
-            bulletCountdown = bulletInterval;
-
-            Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
-            bullet.transform.position = transform.position + Vector3.left;
-            bullet.FireBullet(playerDirection, 20f);
-        }
-        if (bulletCountdown > 0)
-        {
-            bulletCountdown--;
-        }
+        Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+        bullet.transform.position = transform.position + Vector3.left;
+        bullet.FireBullet(playerDirection, 20f);
     }
 }

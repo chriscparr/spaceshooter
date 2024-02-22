@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 public abstract class AbstractEnemy : AbstractGameEntity, IEnemy
 {
     public abstract Constants.EnemyType Type { get; }
@@ -12,12 +13,14 @@ public abstract class AbstractEnemy : AbstractGameEntity, IEnemy
 
         if (Health <= 0)
         {
+            StopCoroutine(ShootInterval());
             EnemyKilled?.Invoke(this);
         }
     }
 
     public void Spawn(Vector3 spawnPosition)
     {
+        StartCoroutine(ShootInterval());
         Health = TotalHealth;
         transform.position = spawnPosition;
     }

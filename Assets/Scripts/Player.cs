@@ -10,12 +10,12 @@ public class Player : AbstractGameEntity
     public static event PlayerPositionStatus PlayerSpawned;
 
     [SerializeField] protected Rigidbody _rigidbody;
-    [SerializeField] protected Renderer renderer;
-    [SerializeField] protected Collider collider;
+    [SerializeField] protected Renderer _renderer;
+    [SerializeField] protected Collider _collider;
 
     protected override int Health { get => _health; set => _health = value; }
     protected override int TotalHealth => 10;
-    protected override int bulletInterval => 250;
+    protected override float bulletInterval => 1f;
     protected int _health;
     protected float _moveSpeed = 1;
 
@@ -29,7 +29,7 @@ public class Player : AbstractGameEntity
     protected override void Start()
     {
         base.Start();
-        PlayerSpawned?.Invoke(transform.position);
+        SpawnPlayer();
     }
 
     private void OnSpawnPositionsChanged(List<Vector3> spawnPositions)
@@ -41,30 +41,12 @@ public class Player : AbstractGameEntity
         shootTarget = spawnPositions[0];
     }
 
-    // Update is called once per frame
-    protected override void Update()
+    protected void Update()
     {
-        base.Update();
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         _rigidbody.AddForce(new Vector3(horizontalInput, verticalInput, 0) * _moveSpeed, ForceMode.Force);
         PlayerPositionChanged?.Invoke(transform.position);
-    }
-
-    protected override void Shoot()
-    {
-        if (bulletCountdown == 0)
-        {
-            bulletCountdown = bulletInterval;
-            Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
-            bullet.transform.position = transform.position + Vector3.right;
-            Vector3 shootDirection = (shootTarget - transform.position).normalized;
-            bullet.FireBullet(shootDirection, 20f);
-        }
-        if (bulletCountdown > 0)
-        {
-            bulletCountdown--;
-        }
     }
 
     public override void TakeDamage(int damage)
@@ -72,22 +54,24 @@ public class Player : AbstractGameEntity
         Health -= damage;
 
         if (Health <= 0)
-        {
+        {            
+            StopCoroutine(ShootInterval());
             PlayerKilled?.Invoke(transform.position);
             _rigidbody.velocity = Vector3.zero;
-            renderer.enabled = false;
-            collider.enabled = false;
+            _renderer.enabled = false;
+            _collider.enabled = false;
             _ = StartCoroutine(SpawnWait());
         }
     }
 
     private void SpawnPlayer()
     {
-        renderer.enabled = true;
+        _renderer.enabled = true;
         Health = TotalHealth;
         transform.position = Vector3.zero;
-        collider.enabled = true;
+        _collider.enabled = true;
         PlayerSpawned?.Invoke(transform.position);
+        StartCoroutine(ShootInterval());
     }
 
     private IEnumerator SpawnWait()
@@ -95,5 +79,14 @@ public class Player : AbstractGameEntity
         yield return new WaitForSeconds(2f);
         SpawnPlayer();
         yield return null;
+    }
+
+    protected override void Shoot()
+    {
+        Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+        Vector3 bulletStartPosition = transform.position + new Vector3(1.3f, 0f, 0f);
+        Vector3 shootDirection = (shootTarget - bulletStartPosition).normalized;
+        bullet.transform.position = bulletStartPosition;      
+        bullet.FireBullet(shootDirection, 20f);
     }
 }

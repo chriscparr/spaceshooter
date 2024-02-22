@@ -1,24 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AbstractGameEntity : MonoBehaviour, IGameEntity
 {
     protected abstract int Health { get; set; }
     protected abstract int TotalHealth { get; }
-    protected abstract int bulletInterval { get; }
-    protected int bulletCountdown = 0;
+    protected abstract float bulletInterval { get; }
 
     public abstract void TakeDamage(int damage);
 
     protected virtual void Start()
     {
         Health = TotalHealth;
-        bulletCountdown = bulletInterval;
     }
 
-    // Update is called once per frame
-    protected virtual void Update()
+    protected virtual IEnumerator ShootInterval()
     {
-        Shoot();
+        while(true)
+        {
+            yield return new WaitForSeconds(bulletInterval);
+            if (Health <= 0)
+            {
+                yield break;
+            }
+            Shoot();
+        }        
     }
 
     protected abstract void Shoot();
