@@ -8,6 +8,8 @@ public class BackgroundMovement : MonoBehaviour
     [SerializeField] private GameObject[] _bgTiles;
     private List<GameObject> _bgTileList;
 
+    private float playerXMovementThreshold = 150f;
+
     private void Awake()
     {
         Player.PlayerPositionChanged += OnPlayerPositionChanged;
@@ -24,7 +26,7 @@ public class BackgroundMovement : MonoBehaviour
 
     protected void OnPlayerPositionChanged(Vector3 playerPosition)
     {
-        if (playerPosition.x - _bgTileList[0].transform.position.x >= 150f)
+        if (playerPosition.x - _bgTileList[0].transform.position.x >= playerXMovementThreshold)
         {
             _bgTileList[0].transform.position = _bgTileList[_bgTileList.Count - 1].transform.position + new Vector3(100f, 0f, 0f);
             _bgTileList = _bgTileList.OrderBy(o => o.transform.position.x).ToList();

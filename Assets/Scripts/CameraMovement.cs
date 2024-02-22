@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Vector3 initialCameraPosition = new Vector3(0f, 0f, -20f);
     void Start()
     {
         Player.PlayerPositionChanged += OnPlayerPositionChanged;
@@ -13,14 +13,14 @@ public class CameraMovement : MonoBehaviour
 
     protected void OnPlayerSpawned(Vector3 playerPosition)
     {
-        transform.position = new Vector3(playerPosition.x, 0, -20);
+        transform.position = initialCameraPosition + new Vector3(playerPosition.x, 0f, 0f);
     }
 
     protected void OnPlayerPositionChanged(Vector3 playerPosition)
     {
         if (playerPosition.x > transform.position.x)
         {
-            transform.position = new Vector3(playerPosition.x, 0, -20);
+            transform.position = initialCameraPosition + new Vector3(playerPosition.x, 0f, 0f);
         }
     }
 }

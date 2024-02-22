@@ -19,13 +19,13 @@ public class EnemySpawner : MonoBehaviour
     {
         for(int i = 0; i < 2; i++)
         {
-            HardEnemy hardEnemy = PoolingManager.Instance.GetObjectFromPool("HardEnemy", true, 0).GetComponent<HardEnemy>();
+            HardEnemy hardEnemy = PoolingManager.Instance.GetObjectFromPool(Constants.HARD_ENEMY_PREFAB_NAME, true, 0).GetComponent<HardEnemy>();
             enemyList.Add(hardEnemy);
             hardEnemy.Spawn(new Vector3(Random.Range(20f, 40f), Random.Range(Constants.MinY, Constants.MaxY), 0f));
         }
         for (int i = 0; i < 3; i++)
         {
-            EasyEnemy easyEnemy = PoolingManager.Instance.GetObjectFromPool("EasyEnemy", true, 0).GetComponent<EasyEnemy>();
+            EasyEnemy easyEnemy = PoolingManager.Instance.GetObjectFromPool(Constants.EASY_ENEMY_PREFAB_NAME, true, 0).GetComponent<EasyEnemy>();
             enemyList.Add(easyEnemy);
             easyEnemy.Spawn(new Vector3(Random.Range(20f, 40f), Random.Range(Constants.MinY, Constants.MaxY), 0f));
         }
@@ -38,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnPlayerKilled(Vector3 playerPosition)
     {
-        Explosion explosion = PoolingManager.Instance.GetObjectFromPool("Explosion", true, 0).GetComponent<Explosion>();
+        Explosion explosion = PoolingManager.Instance.GetObjectFromPool(Constants.EXPLOSION_PREFAB_NAME, true, 0).GetComponent<Explosion>();
         explosion.transform.position = playerPosition;
         explosion.Explode();
 
@@ -57,7 +57,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void OnEnemyKilled(IEnemy enemy)
     {
-        Explosion explosion = PoolingManager.Instance.GetObjectFromPool("Explosion", true, 0).GetComponent<Explosion>();
+        Explosion explosion = PoolingManager.Instance.GetObjectFromPool(Constants.EXPLOSION_PREFAB_NAME, true, 0).GetComponent<Explosion>();
         explosion.transform.position = enemy.Position;
         explosion.Explode();
 

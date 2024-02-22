@@ -54,10 +54,8 @@ public class ObjectPool
         populatePool(Mathf.Max(initialCount, 1));
     }
 
-    //o(1)
     private void AddObjectToPool(PoolObject po)
     {
-        //add to pool
         po.gameObject.SetActive(false);
         po.gameObject.name = poolName;
         availableObjStack.Push(po);
@@ -74,7 +72,6 @@ public class ObjectPool
         }
     }
 
-    //o(1)
     public GameObject NextAvailableObject(bool autoActive)
     {
         PoolObject po = null;
@@ -116,7 +113,6 @@ public class ObjectPool
         return result;
     }
 
-    //o(1)
     public void ReturnObjectToPool(PoolObject po)
     {
         if (poolName.Equals(po.poolName))

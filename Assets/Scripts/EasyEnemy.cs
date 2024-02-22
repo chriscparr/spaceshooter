@@ -11,6 +11,8 @@ public class EasyEnemy : AbstractEnemy
 
     public override Constants.EnemyType Type => Constants.EnemyType.EASY;
 
+    protected override float bulletSpeed => 20f;
+
     protected int health;
 
     protected Vector3 playerDirection;
@@ -28,8 +30,8 @@ public class EasyEnemy : AbstractEnemy
 
     protected override void Shoot()
     {
-        Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+        Bullet bullet = PoolingManager.Instance.GetObjectFromPool(Constants.BULLET_PREFAB_NAME, true, 0).GetComponent<Bullet>();
         bullet.transform.position = transform.position + Vector3.left;
-        bullet.FireBullet(playerDirection, 20f);
+        bullet.FireBullet(playerDirection, bulletSpeed);
     }
 }

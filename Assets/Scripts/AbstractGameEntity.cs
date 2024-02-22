@@ -7,6 +7,7 @@ public abstract class AbstractGameEntity : MonoBehaviour, IGameEntity
     protected abstract int Health { get; set; }
     protected abstract int TotalHealth { get; }
     protected abstract float bulletInterval { get; }
+    protected abstract float bulletSpeed { get; }
 
     public abstract void TakeDamage(int damage);
 

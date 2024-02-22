@@ -6,7 +6,6 @@ using UnityEngine;
 [AddComponentMenu("")]
 public class PoolingManager : MonoBehaviour
 {
-    //obj pool
     private Dictionary<string, ObjectPool> poolDict = new Dictionary<string, ObjectPool>();
 
     private static PoolingManager mInstance = null;
@@ -59,7 +58,7 @@ public class PoolingManager : MonoBehaviour
             GameObject pb = Resources.Load<GameObject>(poolName);
             if (pb == null)
             {
-                Debug.LogError("[PoolingManager] Invalide prefab name for pooling :" + poolName);
+                Debug.LogError("[PoolingManager] Invalid prefab name for pooling :" + poolName);
                 return;
             }
             poolDict[poolName] = new ObjectPool(poolName, pb, gameObject, size, type);

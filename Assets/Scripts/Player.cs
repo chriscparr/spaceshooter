@@ -16,6 +16,9 @@ public class Player : AbstractGameEntity
     protected override int Health { get => _health; set => _health = value; }
     protected override int TotalHealth => 10;
     protected override float bulletInterval => 1f;
+
+    protected override float bulletSpeed => 20f;
+
     protected int _health;
     protected float _moveSpeed = 1;
 
@@ -83,10 +86,10 @@ public class Player : AbstractGameEntity
 
     protected override void Shoot()
     {
-        Bullet bullet = PoolingManager.Instance.GetObjectFromPool("Bullet", true, 0).GetComponent<Bullet>();
+        Bullet bullet = PoolingManager.Instance.GetObjectFromPool(Constants.BULLET_PREFAB_NAME, true, 0).GetComponent<Bullet>();
         Vector3 bulletStartPosition = transform.position + new Vector3(1.3f, 0f, 0f);
         Vector3 shootDirection = (shootTarget - bulletStartPosition).normalized;
         bullet.transform.position = bulletStartPosition;      
-        bullet.FireBullet(shootDirection, 20f);
+        bullet.FireBullet(shootDirection, bulletSpeed);
     }
 }
