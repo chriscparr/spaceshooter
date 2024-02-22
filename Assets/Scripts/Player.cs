@@ -6,10 +6,15 @@ public class Player : AbstractGameEntity
 {
     public delegate void PlayerPositionStatus(Vector3 position);
     public static event PlayerPositionStatus PlayerPositionChanged;
+    public static event PlayerPositionStatus PlayerKilled;
+    public static event PlayerPositionStatus PlayerSpawned;
 
     [SerializeField] protected Rigidbody _rigidbody;
+    [SerializeField] protected Renderer renderer;
+    [SerializeField] protected Collider collider;
+
     protected override int Health { get => _health; set => _health = value; }
-    protected override int TotalHealth => 100;
+    protected override int TotalHealth => 10;
     protected override int bulletInterval => 250;
     protected int _health;
     protected float _moveSpeed = 1;
@@ -24,6 +29,7 @@ public class Player : AbstractGameEntity
     protected override void Start()
     {
         base.Start();
+        PlayerSpawned?.Invoke(transform.position);
     }
 
     private void OnSpawnPositionsChanged(List<Vector3> spawnPositions)
@@ -63,6 +69,31 @@ public class Player : AbstractGameEntity
 
     public override void TakeDamage(int damage)
     {
-        //take some damage
+        Health -= damage;
+
+        if (Health <= 0)
+        {
+            PlayerKilled?.Invoke(transform.position);
+            _rigidbody.velocity = Vector3.zero;
+            renderer.enabled = false;
+            collider.enabled = false;
+            _ = StartCoroutine(SpawnWait());
+        }
+    }
+
+    private void SpawnPlayer()
+    {
+        renderer.enabled = true;
+        Health = TotalHealth;
+        transform.position = Vector3.zero;
+        collider.enabled = true;
+        PlayerSpawned?.Invoke(transform.position);
+    }
+
+    private IEnumerator SpawnWait()
+    {
+        yield return new WaitForSeconds(2f);
+        SpawnPlayer();
+        yield return null;
     }
 }

@@ -9,10 +9,10 @@ public class EnemySpawner : MonoBehaviour
 
     private List<AbstractEnemy> enemyList = new List<AbstractEnemy>();
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        SetupEnemyField();
+        Player.PlayerSpawned += OnPlayerSpawned;
+        Player.PlayerKilled += OnPlayerKilled;
     }
 
     private void SetupEnemyField()
@@ -34,6 +34,25 @@ public class EnemySpawner : MonoBehaviour
             e.EnemyKilled += OnEnemyKilled;
         }
         DispatchSpawnPositions();
+    }
+
+    private void OnPlayerKilled(Vector3 playerPosition)
+    {
+        Explosion explosion = PoolingManager.Instance.GetObjectFromPool("Explosion", true, 0).GetComponent<Explosion>();
+        explosion.transform.position = playerPosition;
+        explosion.Explode();
+
+        foreach (AbstractEnemy e in enemyList)
+        {
+            e.EnemyKilled -= OnEnemyKilled;
+            PoolingManager.Instance.ReturnObjectToPool(e.gameObject);
+        }
+        enemyList.Clear();
+    }
+
+    private void OnPlayerSpawned(Vector3 playerPosition)
+    {        
+        SetupEnemyField();
     }
 
     private void OnEnemyKilled(IEnemy enemy)

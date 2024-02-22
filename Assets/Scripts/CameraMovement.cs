@@ -8,6 +8,12 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         Player.PlayerPositionChanged += OnPlayerPositionChanged;
+        Player.PlayerSpawned += OnPlayerSpawned;
+    }
+
+    protected void OnPlayerSpawned(Vector3 playerPosition)
+    {
+        transform.position = new Vector3(playerPosition.x, 0, -20);
     }
 
     protected void OnPlayerPositionChanged(Vector3 playerPosition)

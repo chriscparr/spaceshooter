@@ -119,8 +119,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fea65b44a838ce848a55f10fad0d5d86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 287545387746567224, guid: 5af8fb4428d0cbc40ba83d906f1034fd, type: 3}
   _rigidbody: {fileID: 248201420116856855}
+  renderer: {fileID: 101077342662190334}
+  collider: {fileID: 52482114095631781}
 --- !u!54 &248201420116856855
 Rigidbody:
   m_ObjectHideFlags: 0
