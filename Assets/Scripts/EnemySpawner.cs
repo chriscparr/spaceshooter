@@ -7,12 +7,29 @@ public class EnemySpawner : MonoBehaviour
     public delegate void SpawnStatus(List<Vector3> spawnPositions);
     public static event SpawnStatus SpawnPositionsChanged;
 
-    [SerializeField] protected AbstractEnemy[] _enemies;
+    private List<AbstractEnemy> enemyList = new List<AbstractEnemy>();
 
     // Start is called before the first frame update
     void Start()
     {
-        foreach(IEnemy e in _enemies)
+        SetupEnemyField();
+    }
+
+    private void SetupEnemyField()
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            HardEnemy hardEnemy = PoolingManager.Instance.GetObjectFromPool("HardEnemy", true, 0).GetComponent<HardEnemy>();
+            enemyList.Add(hardEnemy);
+            hardEnemy.Spawn(new Vector3(Random.Range(20f, 40f), Random.Range(Constants.MinY, Constants.MaxY), 0f));
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            EasyEnemy easyEnemy = PoolingManager.Instance.GetObjectFromPool("EasyEnemy", true, 0).GetComponent<EasyEnemy>();
+            enemyList.Add(easyEnemy);
+            easyEnemy.Spawn(new Vector3(Random.Range(20f, 40f), Random.Range(Constants.MinY, Constants.MaxY), 0f));
+        }
+        foreach (IEnemy e in enemyList)
         {
             e.EnemyKilled += OnEnemyKilled;
         }
@@ -32,7 +49,7 @@ public class EnemySpawner : MonoBehaviour
     protected void DispatchSpawnPositions()
     {
         List<Vector3> positions = new List<Vector3>();
-        foreach (IEnemy e in _enemies)
+        foreach (IEnemy e in enemyList)
         {
             positions.Add(e.Position);
         }
